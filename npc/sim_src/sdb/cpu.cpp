@@ -10,14 +10,9 @@
 
 #define MAX_INST_TO_PRINT 1000
 
-#ifdef CONFIG_WAVE
-  #define dump_wave  tfp->dump(contextp->time());  contextp->timeInc(1);
-#else
-  #define dump_wave
-#endif
 
 extern VerilatedContext* contextp;
-extern Vriscv32* top;
+extern Vysyx_23060077_top* top;
 extern VerilatedVcdC* tfp;
 
 extern int stop_flag;
@@ -30,6 +25,10 @@ NPCState npc_state = { .state = NPC_STOP };
 CPU_state cpu = {};
 static bool g_print_step = false;
 
+#ifdef CONFIG_WAVE
+static bool wave_flag = false;
+#endif
+
 
 int is_exit_status_bad() {
   int good = (npc_state.state == NPC_END && npc_state.halt_ret == 0) ||
@@ -39,16 +38,31 @@ int is_exit_status_bad() {
   // return 100;
 }
 
+static void dump_wave(){
+#ifdef CONFIG_WAVE
+  if(cpu_pc == CONFIG_WAVE_PC_BEGIN){
+    wave_flag = true;
+  }
+  if(cpu_pc == CONFIG_WAVE_PC_END){
+    wave_flag = false;
+  }
+  if(wave_flag){
+    tfp->dump(contextp->time());  
+    contextp->timeInc(1);
+  }
+#endif
+}
+
 static void exec_once() {
     top->clk = 1;
     top->eval();
 
-    dump_wave;
+    dump_wave();
 
     top->clk = 0;
     top->eval();
     
-    dump_wave;
+    dump_wave();
 
 }
 
@@ -101,7 +115,15 @@ static void trace_and_difftest() {
 #endif
 }
 
-
+extern uint32_t write_addr;
+extern uint32_t write_data;
+extern uint32_t write_mask;
+extern uint32_t write_flag;
+uint32_t write_flag_r;
+uint32_t write_data_r;
+uint32_t write_mask_r;
+uint32_t write_addr_r;
+      uint32_t kk_read_data = 0xFFFFFFFF;
 static void execute(uint64_t n) {
   // uint64_t timer_start = get_time();
   static char p[64];
@@ -117,11 +139,26 @@ static void execute(uint64_t n) {
       #else
         p[0] = '\0'; // the upstream llvm does not support loongarch32r
       #endif
-
+      // printf("%08x   %08x %s\n",cpu_pc,cpu_inst,p);
       exec_once();
       trace_and_difftest();
+
+      // if(kk_read_data != host_read(guest_to_host(0x800310A4), 4)){
+      //   kk_read_data = host_read(guest_to_host(0x800310A4), 4);
+      //   printf("0x800310A4: %8x\n",kk_read_data);
+      // }
       
-      
+      // if(write_flag_r){
+      //   write_flag = 0;
+      //   if(write_addr_r != 0xa00003f8){
+      //     difftest_memcpy(write_addr_r, (void *)&write_data_r, write_mask_r, DIFFTEST_TO_DUT);
+      //   }
+      // }
+      // write_addr_r = write_addr;
+      // write_data_r = write_data;
+      // write_mask_r = write_mask;
+      // write_flag_r = write_flag;
+
       if (npc_state.state != NPC_RUNNING) break;
       if (stop_flag == 1){
           npc_state.halt_pc = cpu_pc;

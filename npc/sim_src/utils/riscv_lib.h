@@ -5,8 +5,8 @@
 #include "init.h"
 
 
-#include "Vriscv32.h"
-#include "Vriscv32__Dpi.h"
+#include "Vysyx_23060077_top.h"
+#include "Vysyx_23060077_top__Dpi.h"
 
 
 

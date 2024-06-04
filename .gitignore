@@ -2,8 +2,7 @@
 /*.png
 /wave.vcd
 /.git
-/cpu-tests/build
 /npc_chisel
 /build
 /obj_dir
-
+/ysyxSoC/out

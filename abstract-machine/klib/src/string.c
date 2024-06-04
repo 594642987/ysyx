@@ -36,38 +36,48 @@ char *strncpy(char *dst, const char *src, size_t n) {
 
 char *strcat(char *dst, const char *src) {
   char *dst_t = dst;
-  while(*dst_t){
+  while(*dst_t != '\0'){
     dst_t++;
   }
-  while( (*dst_t++ = *src++));
-  // *dst_t = '\0';
+  while(*src != '\0'){
+    *dst_t++ = *src++;
+  }
+  *dst_t = '\0';
   return dst;
 }
 
 int strcmp(const char *s1, const char *s2) {
-  while(*s1 != '\0' && *s2 != '\0' && (*s1 == *s2)){
-    s1++;
-    s2++;
+  int ret = 0;
+  char *s1_t = (char *)s1;
+  char *s2_t = (char *)s2;
+   while(*s1_t != '\0' && *s2_t != '\0'){
+    ret = *s1_t++ - *s2_t++;
+    if(ret != 0){
+      return ret;
+    }
   }
-  int t = *s1 - *s2;
-  return t;
+  ret = *s1_t - *s2_t;
+  return ret;
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
-  while(n-1>0 && (*s1 == *s2)){
-    s1++;
-    s2++;
-    n--;
+  int ret = 0;
+  char *s1_t = (char *)s1;
+  char *s2_t = (char *)s2;
+  for(size_t i=0; i<n; i++){
+    ret = *s1_t++ - *s2_t++;
+    if(ret != 0){
+      break;
+    }
   }
-  int t = *s1 - *s2;
-  return t;
+  return ret;
 }
 
 void *memset(void *s, int c, size_t n) {
   assert(s != NULL);
-  char *str = (char *)s;
-  for(;n;n--){
-    *str++ = c;
+  char *s_t = (char *)s;
+  for(size_t i=0; i<n; i++){
+    *(s_t++) = c;
   }
   return s;
 }
@@ -77,33 +87,36 @@ void *memset(void *s, int c, size_t n) {
 void *memmove(void *dst, const void *src, size_t n) {
   char *dst_t = (char *) dst;
   char *src_t = (char *) src;
-  dst_t = dst_t + n - 1;
-  src_t = src_t + n - 1;
-  for(;n;n--){
-    *dst_t-- = *src_t--;
+  if(dst <= src){
+    for(size_t i=0; i<n; i++){
+      *(dst_t++) = *(src_t++);
+    }
+  }else{
+    dst_t = dst_t + n - 1;
+    src_t = src_t + n - 1;
+    for(size_t i=0; i<n; i++){
+      *(dst_t--) = *(src_t--);
+    }
   }
-  return dst_t;
+  return dst;
 }
 // memcpy本身不允许重叠
-void *memcpy(void *out, const void *in, size_t n) {
-  char *out_t = (char *) out;
-  char *in_t = (char *) in;
-  for(;n;n--){
-    *out_t++ = *in_t++;
-  }
-  return out;
+void  *memcpy (void *dst, const void *src, size_t n) {
+  memmove(dst,src,n);
+  return dst;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  char *s1_t = (char *) s1;
-  char *s2_t = (char *) s2;
-   while(n-1>0 && (*s1_t == *s2_t)){
-    s1_t++;
-    s2_t++;
-    n--;
+  int ret = 0;
+  char *s1_t = (char *)s1;
+  char *s2_t = (char *)s2;
+  for(size_t i=0; i<n; i++){
+    ret = *(s1_t++) - *(s2_t++);
+    if(ret != 0){
+      break;
+    }
   }
-  int t = *s1_t - *s2_t;
-  return t;
+  return ret;
 }
 
 #endif

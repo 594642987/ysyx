@@ -1,11 +1,8 @@
-#ifndef _VFPGA_KEYBOARD_H
-#define _VFPGA_KEYBOARD_H
+#ifndef __KEYBOARD_H__
+#define __KEYBOARD_H__
 
 #include <queue>
-#include <assert.h>
-#include <nvboard.h>
-#include <map>
-#include <at_scancode.h>
+#include <component.h>
 
 #define NOT_A_KEY -1
 #define CLK_NUM 10
@@ -25,11 +22,9 @@ class KEYBOARD : public Component{
     int data_idx;
     int left_clk;
     int cur_key;
-    uint64_t* ps2_clk;
-    uint64_t* ps2_dat;
 
   public:
-    KEYBOARD(SDL_Renderer *rend, int cnt, int init_val, int it, int ct);
+    KEYBOARD(SDL_Renderer *rend, int cnt, int init_val, int ct);
     ~KEYBOARD();
     void push_key(uint8_t scancode, bool is_keydown);
     virtual void update_state();

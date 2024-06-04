@@ -18,9 +18,6 @@ int main() {
 		}
 		check(j == NR_DATA);
 	}
-	while(1){
-
-	}
 
 	check(i == NR_DATA);
 

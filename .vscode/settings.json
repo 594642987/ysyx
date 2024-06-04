@@ -20,7 +20,8 @@
 =======
     },
     "files.watcherExclude": {
-        "**/target": true
+        "**/target": true,
+				"**/*.backup": true
 >>>>>>> 77ce75f
     }
 }

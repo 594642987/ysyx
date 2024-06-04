@@ -7,7 +7,7 @@
 #include <dlfcn.h>
 
 
-enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
+
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
 void (*ref_difftest_exec)(uint64_t n) = NULL;
@@ -82,6 +82,9 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_memcpy(PMEM_LEFT, guest_to_host(PMEM_LEFT), img_size, DIFFTEST_TO_REF);
   package_cpu(PMEM_LEFT);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+}
+void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction){
+  ref_difftest_memcpy(addr, buf, n, direction);
 }
 
 bool checkregs() {

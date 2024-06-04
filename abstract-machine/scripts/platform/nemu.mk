@@ -9,7 +9,7 @@ AM_SRCS := platform/nemu/trm.c \
 
 ### -fdata-sections  全局和静态变量放入单独的节（sections）中
 ### -ffunction-sections 将函数放入单独的节中
-CFLAGS    += -fdata-sections -ffunction-sections
+CFLAGS    += -fdata-sections -ffunction-sections -fno-inline
 ### -T $(AM_HOME)/scripts/linker.ld 使用指定的链接脚本文件
 ### --defsym=_pmem_start=0x80000000 将 _pmem_start 符号定义为 0x80000000
 ### --defsym=_entry_offset=0x0 将 _entry_offset 符号定义为 0x0

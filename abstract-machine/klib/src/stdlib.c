@@ -29,21 +29,21 @@ int atoi(const char* nptr) {
   }
   return x;
 }
-static char *memory_heep;
-static char memory_flag = 1;
+#if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
+static char *memory_heep = NULL;
+#endif
 void *malloc(size_t size) {
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
   
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
-  if(memory_flag){
+  if(memory_heep == NULL){
     memory_heep = heap.start;
-    memory_flag = 0;
-  }else{
-    memory_heep += size;
-    return memory_heep-size;
   }
+  memory_heep += size;
+  return memory_heep-size;
+
   // if(memory_heep - memory_pool + size > MEMORY_POOL_SIZE){
   //   assert(0);
   //   return NULL;

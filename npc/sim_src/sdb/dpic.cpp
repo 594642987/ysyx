@@ -5,7 +5,7 @@
 #include "pmem.h"
 #include "device_lib.h"
 
-#include "Vriscv32__Dpi.h"
+#include "Vysyx_23060077_top__Dpi.h"
 #include "verilated_dpi.h"
 
 
@@ -18,7 +18,7 @@ uint32_t cpu_pc;
 uint32_t *cpu_gpr = NULL;
 uint32_t *cpu_csr = NULL;
 
-extern Vriscv32* top;
+extern Vysyx_23060077_top* top;
 
 
 extern "C" void set_pc_ptr(int pc) {
@@ -41,11 +41,11 @@ extern "C" void get_riscv32_rst(svBit rst_n) {
   }
 }
 
-extern "C" void riscv_pmem_read(int raddr, int *rdata, svBit ren){
+extern "C" void riscv_pmem_read(int raddr, int *rdata, int len,svBit ren){
 	if(ren){
 		if(in_pmem(raddr)){
 			// printf("%8x\n",raddr);
-			*rdata = pmem_read((uint32_t)raddr,4);
+			*rdata = pmem_read((uint32_t)raddr,len);
 			if(*rdata == 0x00100073){
 				stop_flag = 1;
 			}
@@ -53,7 +53,7 @@ extern "C" void riscv_pmem_read(int raddr, int *rdata, svBit ren){
 			// 	stop_flag = 1;
 			// }
 		}else{
-			device_flag = 1;
+			// device_flag = 1;
 			// printf("%8x\n",raddr);
 			*rdata = device_read((uint32_t) raddr);
 		}
@@ -67,10 +67,16 @@ extern "C" void riscv_pmem_read(int raddr, int *rdata, svBit ren){
 #endif
 	}
 }
-
+uint32_t write_addr = 0;
+uint32_t write_data = 0;
+uint32_t write_mask = 0;
+uint32_t write_flag = 0;
 extern "C" void riscv_pmem_write(int waddr, int wdata, int wmask,svBit wen){
 	if(wen){
-		// printf("%8x\n",waddr);
+		write_addr = waddr;
+		write_data = wdata;
+		write_mask = wmask;
+		write_flag = 1;
 		if(in_pmem(waddr)){
 			pmem_write((uint32_t)waddr,(uint32_t)wdata,wmask);
 		}else{

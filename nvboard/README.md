@@ -1,8 +1,10 @@
 # NVBoard
 
+![image](./NVBoard.jpg)
+
 ## 介绍
 
-NVBoard(NJU Virtual Board)是基于SDL开发的虚拟FPGA开发板，可以在Verilator仿真环境中模拟FPGA，支持LED，七段数码管，开关，键盘和VGA。
+NVBoard(NJU Virtual Board)是基于SDL开发的虚拟FPGA开发板，可以在Verilator仿真环境中模拟FPGA，支持LED，七段数码管，拨码开关，UART，键盘和VGA。
 
 ## 项目文件说明
 
@@ -12,27 +14,44 @@ NVBoard(NJU Virtual Board)是基于SDL开发的虚拟FPGA开发板，可以在Ve
 │   └── ...
 ├── example                 # 示例项目
 │   └── ...
-├── include
-│   ├── at_scancode.h
+├── include                 # 用于NVboard项目内部包含的头文件
 │   ├── component.h
 │   ├── configs.h
-│   ├── constrs.h
+│   ├── font.h
 │   ├── keyboard.h
 │   ├── macro.h
 │   ├── nvboard.h
+│   ├── pins.h
 │   ├── render.h
+│   ├── term.h
+│   ├── uart.h
 │   └── vga.h
-├── pic                     # NVBoard图片资源
-│   └── ...
+├── resources
+│   ├── font                # 字体资源
+│   └── pic                 # 图片资源
 ├── scripts
 │   ├── auto_pin_bind.py    # 生成引脚绑定代码的脚本
 │   └── nvboard.mk          # NVBoard构建规则
-└── src                     # NVBoard源码
+├── src                     # NVBoard源码
+│   ├── at_scancode.h
+│   ├── button.cpp
 │   ├── component.cpp
 │   ├── event.cpp
+│   ├── font.cpp
+│   ├── keyboard.cpp
+│   ├── led.cpp
 │   ├── nvboard.cpp
 │   ├── render.cpp
+│   ├── segs7.cpp
+│   ├── switch.cpp
+│   ├── term.cpp
+│   ├── timer.cpp
+│   ├── uart.cpp
 │   └── vga.cpp
+├── usr
+│   └── include           # 用于给外部项目包含的头文件
+│       ├── nvboard.h
+│       └── pins.h
 ├── LICENSE
 └── README.md
 ```
@@ -40,7 +59,7 @@ NVBoard(NJU Virtual Board)是基于SDL开发的虚拟FPGA开发板，可以在Ve
 ## 安装教程
 
 1. 将项目拷贝到本地，`git clone https://github.com/NJU-ProjectN/nvboard.git`
-2. 通过`apt-get install libsdl2-dev libsdl2-image-dev`安装SDL2和SDL2-image
+2. 通过`apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev`安装SDL2，SDL2-image和SDL2-ttf；对于`macOS`，可以通过`brew install sdl2 sdl2_image sdl2_ttf`安装
 3. 把本项目的目录设置成环境变量`NVBOARD_HOME`
 
 ## 示例
@@ -55,10 +74,7 @@ NVBoard提供了以下几组API
 
 - `void nvboard_init()`: 初始化NVBoard
 - `void nvboard_quit()`: 退出NVBoard
-- `void nvboard_bind_pin(void *signal, bool is_rt, bool is_output, int len, ...)`: 将HDL的信号signal连接到NVBoard里的引脚上，具体地
-  - `is_rt`为`true`时，表示该信号为实时信号，每个周期都要更新才能正确工作，如键盘和VGA相关信号；
-    `is_rt`为`false`时，表示该信号为普通信号，可以在NVBoard更新画面时才更新，从而提升NVBoard的性能，如拨码开关和LED灯等，无需每个周期都更新
-  - `is_output`为`true`时，表示该信号方向为输出方向(从RTL代码到NVBoard)；否则为输入方向(从NVBoard到RTL代码)
+- `void nvboard_bind_pin(void *signal, int len, ...)`: 将HDL的信号signal连接到NVBoard里的引脚上，具体地
   - `len`为信号的长度，大于1时为向量信号
   - 可变参数列表`...`为引脚编号列表，编号为整数；绑定向量信号时，引脚编号列表从MSB到LSB排列
 - `void nvboard_update()`: 更新NVBoard中各组件的状态，每当电路状态发生改变时都需要调用该函数
@@ -88,8 +104,9 @@ signal (pin1, pin2, ..., pink)
 ~~如果发现脚本中的错误也可以尝试修复一下然后丢pr~~
 
 可以在`board`目录下的引脚说明文件中查看引脚信息。
+其中`output`表示该信号方向为输出方向(从RTL代码到NVBoard)，`input`为输入方向(从NVBoard到RTL代码)。
 
-其中，复位引脚`RST`不使用，因为NVBoard在cpp文件中包含一些内部状态，仅复位RTL设计部分会使其与NVBoard状态不一致。
+目前引脚列表中不包含复位引脚`RST`，因为NVBoard在cpp文件中包含一些内部状态，仅复位RTL设计部分会使其与NVBoard状态不一致。
 一个实现全系统复位效果的简单方法是退出NVBoard并重新运行。RTL设计的复位工作由verilator的wrapper完成，具体见`example/csrc/main.cpp`。
 
 ### 调用API
@@ -126,7 +143,3 @@ include $(NVBOARD_HOME)/scripts/nvboard.mk
 * 在生成verilator仿真可执行文件(即`$(NVBOARD_ARCHIVE)`)将这个库文件加入链接过程，并添加链接选项`-lSDL2 -lSDL2_image`
 
 可以参考示例项目中的Makefile文件，即`example/Makefile`
-
-## 特技
-
-1. 可以用 `include/configs.h`选择贴图，让自己的虚拟FPGA开发板更有特色，贴图放在 `pic`目录下；

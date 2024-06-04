@@ -41,7 +41,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   // if(_this->pc >= 0){
   //   puts(_this->logbuf);
   // }
-  
+  // printf("%x\n",_this->pc);
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_WATCHPOINT
   if(check_diff()){
@@ -94,7 +94,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
 #endif
 }
-
+// uint32_t npc_flag = 0;
+// uint32_t npc_count = 0;
 static void execute(uint64_t n) {
   // uint64_t timer_start = get_time();
 
@@ -110,6 +111,16 @@ static void execute(uint64_t n) {
     //   printf("progran stuck in loop\n");
     //   assert_fail_msg();
     //   break;
+    // }
+    // if(cpu.pc == 0x80013e14){
+    //   npc_flag = 1;
+    // }
+    // if(npc_flag == 1){
+    //   isa_reg_display();
+    //   npc_count++;
+    //   if(npc_count >120){
+    //     nemu_state.state = NEMU_STOP;
+    //   }
     // }
 
     if (nemu_state.state != NEMU_RUNNING) break;

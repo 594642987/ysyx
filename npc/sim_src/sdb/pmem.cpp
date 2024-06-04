@@ -1,4 +1,5 @@
 #include "pmem.h"
+#include "difftest.h"
 
 #define PG_ALIGN __attribute((aligned(4096)))
 
@@ -6,6 +7,14 @@ uint8_t pmem[PMEM_SIZE] PG_ALIGN = {};
 
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - PMEM_LEFT; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + PMEM_LEFT; }
+
+void init_mem() {
+  uint32_t *p = (uint32_t *)pmem;
+  int i;
+  for (i = 0; i < (int) (PMEM_SIZE / sizeof(p[0])); i ++) {
+    p[i] = 0;
+  }
+}
 
 word_t host_read(void *addr, int len) {
   switch (len) {
@@ -30,12 +39,16 @@ void host_write(void *addr, int len, word_t data) {
 
 uint32_t pmem_read(uint32_t addr, int len){
     uint32_t ret = host_read(guest_to_host(addr), len);
+    uint32_t data = ret;
+    // printf("read addr:%x data:%x len:%d\n",addr,ret,len);
+    // difftest_memcpy(addr, (void *)&data, len, DIFFTEST_TO_DUT);
     // printf("read addr:%x data:%x\n",addr,ret);
     return ret;
 }
 
 void pmem_write(uint32_t addr, uint32_t data, int len){
     host_write(guest_to_host(addr), len, data);
+    // difftest_memcpy(addr, (void *)&data, len, DIFFTEST_TO_DUT);
   // printf("write address:%08x data:%08x\n",addr,data);
 }
 extern uint32_t cpu_pc;

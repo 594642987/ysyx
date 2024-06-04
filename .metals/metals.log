@@ -1285,3 +1285,126 @@ Oct 29, 2023 10:28:44 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint noti
 INFO: Unsupported notification method: $/setTrace
 2023.10.29 22:50:43 INFO  Started: Metals version 1.1.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
 2023.10.29 22:50:43 WARN  Build server is not auto-connectable.[0m
+2024.05.10 22:40:29 INFO  Started: Metals version 1.2.2 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+Downloading https://repo1.maven.org/maven2/com/h2database/h2/2.1.214/h2-2.1.214.jar
+Downloaded 583901 bytes
+Downloaded 1435869 bytes
+Downloaded 2369757 bytes
+2024.05.10 22:40:34 INFO  Upgraded H2 database.[0m
+22:40:34.386 [pool-1-thread-2] INFO org.flywaydb.core.internal.license.VersionPrinter -- Flyway Community Edition 9.22.3 by Redgate
+22:40:34.387 [pool-1-thread-2] INFO org.flywaydb.core.internal.license.VersionPrinter -- See release notes here: https://rd.gt/416ObMi
+22:40:34.387 [pool-1-thread-2] INFO org.flywaydb.core.internal.license.VersionPrinter -- 
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Scanning for classpath resources at 'classpath:db/callback' ...
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Determining location urls for classpath:db/callback using ClassLoader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 ...
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Unable to resolve location classpath:db/callback.
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Scanning for classpath resources at 'classpath:db/migration' ...
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Determining location urls for classpath:db/migration using ClassLoader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 ...
+22:40:34.389 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Scanning URL: jar:file:/home/jimple/.cache/coursier/v1/https/maven.aliyun.com/repository/central/org/scalameta/metals_2.13/1.2.2/metals_2.13-1.2.2.jar!/db/migration
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Found resource: db/migration/
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Found resource: db/migration/V1__Create_tables.sql
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Found resource: db/migration/V2__Server_discovery.sql
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Found resource: db/migration/V3__Jar_symbols.sql
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Found resource: db/migration/V4__Fingerprints.sql
+22:40:34.390 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner -- Scanning for classes at classpath:db/migration
+22:40:34.392 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/ (filename: )
+22:40:34.392 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator -- Validating V2__Server_discovery.sql
+22:40:34.393 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator -- Validating V4__Fingerprints.sql
+22:40:34.393 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator -- Validating V3__Jar_symbols.sql
+22:40:34.393 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator -- Validating V1__Create_tables.sql
+22:40:34.444 [pool-1-thread-2] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:h2:file:/home/jimple/Documents/ysyx/ysyx-workbench/.metals/metals (H2 2.2)
+22:40:34.444 [pool-1-thread-2] DEBUG org.flywaydb.core.FlywayExecutor -- Driver: H2 JDBC Driver 2.2.224 (2023-09-17)
+22:40:34.444 [pool-1-thread-2] DEBUG org.flywaydb.core.FlywayExecutor -- DDL Transactions Supported: false
+22:40:34.445 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory -- Schemas: 
+22:40:34.445 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory -- Default schema: null
+22:40:34.447 [pool-1-thread-2] WARN org.flywaydb.core.internal.database.base.Database -- Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+22:40:34.448 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.callback.SqlScriptCallbackFactory -- Scanning for SQL callbacks ...
+22:40:34.448 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/ (filename: )
+22:40:34.452 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.command.DbValidate -- Validating migrations ...
+22:40:34.454 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/ (filename: )
+22:40:34.458 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V2__Server_discovery.sql (filename: V2__Server_discovery.sql)
+22:40:34.458 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V4__Fingerprints.sql (filename: V4__Fingerprints.sql)
+22:40:34.458 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V3__Jar_symbols.sql (filename: V3__Jar_symbols.sql)
+22:40:34.458 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql)
+22:40:34.458 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/ (filename: )
+22:40:34.459 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V2__Server_discovery.sql (filename: V2__Server_discovery.sql)
+22:40:34.459 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V4__Fingerprints.sql (filename: V4__Fingerprints.sql)
+22:40:34.459 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V3__Jar_symbols.sql (filename: V3__Jar_symbols.sql)
+22:40:34.459 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql)
+22:40:34.459 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.scanner.Scanner -- Filtering out resource: db/migration/ (filename: )
+22:40:34.464 [pool-1-thread-2] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 4 migrations (execution time 00:00.012s)
+22:40:34.466 [pool-1-thread-2] DEBUG org.flywaydb.core.internal.command.DbSchemas -- Skipping creation of existing schema: "PUBLIC"
+22:40:34.469 [pool-1-thread-2] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "PUBLIC": 4
+22:40:34.471 [pool-1-thread-2] INFO org.flywaydb.core.internal.command.DbMigrate -- Schema "PUBLIC" is up to date. No migration necessary.
+22:40:34.477 [pool-1-thread-2] DEBUG org.flywaydb.core.FlywayExecutor -- Memory usage: 56 of 105M
+2024.05.10 22:40:34 WARN  Build server is not auto-connectable.[0m
+May 10, 2024 10:40:47 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+May 10, 2024 10:45:10 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2024.05.10 22:51:35 INFO  Started: Metals version 1.3.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@13a8abb5]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@13d03198]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@13a8abb5]
+2024.05.10 22:51:36 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+2024.05.11 12:56:27 INFO  Started: Metals version 1.3.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@6359ca72]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@31bea270]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@6359ca72]
+2024.05.11 12:56:28 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+2024.05.11 19:25:15 INFO  Started: Metals version 1.3.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@437ce172]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@26c6897c]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@437ce172]
+2024.05.11 19:25:16 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+2024.05.11 19:25:17 INFO  Shutting down server[0m
+2024.05.11 19:25:17 INFO  shutting down Metals[0m
+2024.05.11 19:25:17 INFO  Exiting server[0m
+2024.05.11 22:08:58 INFO  Started: Metals version 1.3.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@67548e3e]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@4abfed3]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@67548e3e]
+2024.05.11 22:08:59 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+May 11, 2024 10:08:59 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2024.05.11 22:09:44 INFO  Shutting down server[0m
+2024.05.11 22:09:44 INFO  shutting down Metals[0m
+2024.05.11 22:09:44 INFO  Exiting server[0m
+2024.06.01 17:20:48 INFO  Started: Metals version 1.3.0 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@580d540e]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@6fedd7e6]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@580d540e]
+2024.06.01 17:20:48 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+2024.06.01 17:21:41 INFO  Shutting down server[0m
+2024.06.01 17:21:41 INFO  shutting down Metals[0m
+2024.06.01 17:21:41 INFO  Exiting server[0m
+2024.06.01 17:21:53 INFO  Started: Metals version 1.3.1 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@6e3cda44]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@13645c3]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@6e3cda44]
+2024.06.01 17:21:54 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+2024.06.01 17:22:28 INFO  Shutting down server[0m
+2024.06.01 17:22:28 INFO  shutting down Metals[0m
+2024.06.01 17:22:28 INFO  Exiting server[0m
+2024.06.02 23:51:42 INFO  Started: Metals version 1.3.1 in folders '/home/jimple/Documents/ysyx/ysyx-workbench' for client Visual Studio Code 1.82.2.[0m
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@10c3aa03]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@3976b9f8]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@10c3aa03]
+2024.06.02 23:51:43 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.[0m
+Jun 02, 2024 11:59:21 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 02, 2024 11:59:24 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace

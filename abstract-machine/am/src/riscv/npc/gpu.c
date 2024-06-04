@@ -45,20 +45,14 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixels = (uint32_t *)ctl->pixels;
   uint32_t *fb = (uint32_t *)FB_ADDR;
   memset(fb + (y*Width + x), (int)pixels, h*w*4);
-  // for (i = 0; i < h; i ++){
-  //   for(j = 0; j < w; j++){
-  //     fb[(i+y)*Width + x + j] = pixels[i*w + j];
-  //   }
-  // }
+  for (i = 0; i < h; i ++){
+    for(j = 0; j < w; j++){
+      fb[(i+y)*Width + x + j] = pixels[i*w + j];
+    }
+  }
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }else{
-    outl(SYNC_ADDR, 0);
-  }
-  else{
-    outl(SYNC_ADDR, 0);
-  }
-  else{
     outl(SYNC_ADDR, 0);
   }
 }

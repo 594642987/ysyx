@@ -18,7 +18,7 @@
 #endif
 
 
-#include "Vriscv32.h"
+#include "Vysyx_23060077_top.h"
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 

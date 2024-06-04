@@ -1,21 +1,22 @@
 #ifndef __NVBOARD_H__
 #define __NVBOARD_H__
 
-#include <configs.h>
-#include <constrs.h>
+#include <pins.h>
+#include <font.h>
 #include <render.h>
 #include <component.h>
-#include <vga.h>
-#include <keyboard.h>
+#include <configs.h>
+#include <string>
+#include <SDL.h>
+#include <SDL_image.h>
 
-#define BIND_RATE_RT  true
-#define BIND_RATE_SCR false
-#define BIND_DIR_OUT  true
-#define BIND_DIR_IN   false
+#define VERSION_STR "v1.0 (2024.01.10)"
 
-void nvboard_init(int vga_clk_cycle = 1);
-void nvboard_quit();
-void nvboard_bind_pin(void *signal, bool is_rt, bool is_output, int len, ...);
-void nvboard_update();
+void set_redraw();
+uint64_t nvboard_get_time();
+
+void init_render(SDL_Renderer *renderer);
+SDL_Texture* load_pic_texture(SDL_Renderer *renderer, std::string path);
+SDL_Texture* new_texture(SDL_Renderer *renderer, int w, int h, int r, int g, int b);
 
 #endif

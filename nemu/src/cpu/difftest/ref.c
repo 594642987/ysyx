@@ -17,11 +17,26 @@
 #include <cpu/cpu.h>
 #include <difftest-def.h>
 #include <memory/paddr.h>
+#include <stdio.h>
+extern NEMUState nemu_state;
 
 __EXPORT void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   if(direction == DIFFTEST_TO_REF){
     for(int i=0; i<n; i++){
       paddr_write(addr+i,1,*((uint8_t *)buf+i));
+    }
+  }else if(direction == DIFFTEST_TO_DUT){
+    uint8_t *buf_t = (uint8_t *) buf;
+    for(int i=0; i<n; i++){
+      uint8_t data = paddr_read(addr+i,1);
+      if(data != *buf_t){
+        printf("addr :%08x\n",addr+i);
+        nemu_state.state = 3;
+        uint32_t *temp = (uint32_t *) buf;
+        printf("nemu:%08x  npc:%08x\n",paddr_read(addr,4),*temp);
+        break;
+      }
+      buf_t++;
     }
   }
 }
